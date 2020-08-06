@@ -1,0 +1,82 @@
+Blog Project Class Diagram
+
+======= DTO =======
+Role
+    -id : int
+    -name : String
+User
+    -id : int
+    -username : String
+    -password : String
+    -firstName : String
+    -lastName : String
+    -email : String
+    -phone : String
+    -profilePicture : String
+    -enable : boolean
+    -roles : List<Role>
+Content
+    -id : int
+    -createDate : LocalDateTime
+    -title : String
+    -type : String
+    -status : String
+    -content : String
+    -scheduleDate : LocalDateTime
+    -expiredDate : LocalDateTime
+    -titlePicture :String
+    -user : User
+    -tags : List<Tag>
+Comment
+    -id : int
+    -createDate : LocalDateTime
+    -comment : String
+    -user : User
+    -content : Content
+Tag
+    -id : int
+    -name : String
+
+======= DAO =======
++Dao<T>
+    +Create(T model) : T
+    +ReadAll() : List<T>
+    +ReadById(int id) : T
+    +Update(T model)  : void
+    +Delete(int id) : void
+
+RoleDao : DAO<Role>
+    -JdbcTemplete jdbc
+
+UserDao : DAO<User>
+    -JdbcTemplete jdbc
+    -insertIntoUserRole(User user) : void
+    +getRoleByUserId(int userId) : List<Role> 
+    -associateUserRole(List<User> userList) : void
+
+Content : DAO<Content>
+    -JdbcTemplete jdbc
+    -insertIntoContentTag(Content content) : void
+    -associateUserContent(List<Content> contentList) : void
+    +getUserForContent(int contentId) : User 
+    +getTagsForContent(int contentId) : List<Tag> 
+    -associateContentTag(List<Content> contentList) : void
+    +getPicutureForContent(int contentId) : List<String>
+    -associateContentPicture(List<Content> contentList) : void
+
+Comment : DAO<Comment>
+    -JdbcTemplete jdbc
+    +getContentForComment(int commentId) : Content
+
+Tag : DAO<Tag>
+    -JdbcTemplete jdbc
+
+-----RowMapper-----
++RowMapper<T>
+    +mapRow(Resultset resultSet, int index) : List<T>
+
++RoleMapper : RowMapper<Role>
++UserMapper : RowMapper<User>
++ContentMapper : RowMapper<Content>
++CommentMapper : RowMapper<Comment>
++TagMapper : RowMapper<Tag>
