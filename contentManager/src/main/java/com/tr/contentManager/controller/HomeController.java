@@ -51,11 +51,12 @@ public class HomeController {
         List<Tag> tagList = tagDao.readAll();
         List<Tag> tagList1 = new ArrayList<>();
         List<Tag> tagList2 = new ArrayList<>();
+        //to arrange two hashtag column
         for (int i = 0; i < tagList.size(); i++) {
             if (i < tagList.size()/2) {
                 tagList1.add(tagList.get(i));
             }
-            if ( (i > tagList.size()/2) || (i == tagList.size()/2)){
+            if ( (i >= tagList.size()/2) ){
                 tagList2.add(tagList.get(i));
             }
         }

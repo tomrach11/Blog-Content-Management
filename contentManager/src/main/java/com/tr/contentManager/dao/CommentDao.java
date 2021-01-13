@@ -15,6 +15,7 @@ public class CommentDao<T> implements Dao<Comment> {
 
     @Override
     public Comment create(Comment model) {
+        //add to
         final String INSERT_COMMENT = "INSERT INTO comment(createDate, comment, userId, contentId) VALUES (?,?,?,?)";
         jdbc.update(INSERT_COMMENT, model.getCreateDate(), model.getComment(), model.getUser().getId(), model.getContent().getId());
 
